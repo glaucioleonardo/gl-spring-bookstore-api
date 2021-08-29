@@ -5,6 +5,7 @@ import com.glauciosantana.bookstore.dtos.CategoriaDTO;
 import com.glauciosantana.bookstore.repositories.CategoriaRepository;
 import com.glauciosantana.bookstore.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -42,6 +43,15 @@ public class CategoriaService {
 
     public void delete(Integer id) {
         findById(id);
-        repository.deleteById(id);
+
+        try {
+            repository.deleteById(id);
+
+        } catch (DataIntegrityViolationException e) {
+            throw new com.glauciosantana.bookstore.services.exceptions.DataIntegrityViolationException(
+                    "The category cannot be deleted! It has linked books!"
+            );
+        }
+
     }
 }
