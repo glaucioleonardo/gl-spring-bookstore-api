@@ -40,6 +40,13 @@ public class CategoriaResource {
         return  ResponseEntity.created(uri).build();
 
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<CategoriaDTO> update(@PathVariable Integer id, @RequestBody CategoriaDTO ojbDTO) {
+        Categoria newObj = service.update(id, ojbDTO);
+
+        return  ResponseEntity.ok().body(new CategoriaDTO(newObj));
+    }
 }
 
 

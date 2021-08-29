@@ -1,6 +1,7 @@
 package com.glauciosantana.bookstore.services;
 
 import com.glauciosantana.bookstore.domain.Categoria;
+import com.glauciosantana.bookstore.dtos.CategoriaDTO;
 import com.glauciosantana.bookstore.repositories.CategoriaRepository;
 import com.glauciosantana.bookstore.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,14 @@ public class CategoriaService {
 
     public Categoria create(Categoria obj) {
         obj.setId(null);
+        return repository.save(obj);
+    }
+
+    public Categoria update(Integer id, CategoriaDTO ojbDTO) {
+        Categoria obj = findById(id);
+        obj.setNome(obj.getNome());
+        obj.setDescricao(obj.getDescricao());
+
         return repository.save(obj);
     }
 }
