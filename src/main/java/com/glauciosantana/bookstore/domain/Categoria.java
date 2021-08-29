@@ -1,6 +1,9 @@
 package com.glauciosantana.bookstore.domain;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +15,13 @@ public class Categoria implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @NotEmpty(message = "Field Name is required!")
+    @Length(min = 3, max = 100, message = "The field Name must have between 3 and 100 characters!")
     private String nome;
+
+    @NotEmpty(message = "Field Description is required!")
+    @Length(min = 3, max = 200, message = "The field Description must have between 3 and 200 characters!")
     private String descricao;
 
     @OneToMany(mappedBy = "categoria")
